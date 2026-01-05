@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <!-- Welcome Card -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body text-center">
+                <h1 class="card-title"><i class="bi bi-stack text-primary"></i> Welcome to Mini StackOverflow</h1>
+                <p class="card-text lead">A community-driven Q&A platform .</p>
+                {% if 'user_id' in session %}
+                    <a href="/ask" class="btn btn-primary btn-lg mt-3">
+                        <i class="bi bi-plus-circle"></i> Ask a Question
+                    </a>
+                {% else %}
+                    <div class="mt-3">
+                        <a href="/register" class="btn btn-primary btn-lg me-2">Join Now</a>
+                        <a href="/login" class="btn btn-outline-primary btn-lg">Sign In</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Search & Filter Card -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-search"></i> Find Questions</h5>
+                
+                <!-- Search Form -->
+                <form method="GET" action="{{ url_for('home') }}" class="mb-4">
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" name="q" placeholder="Search questions..." value="{{ search_query }}">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Tag Filter -->
+                <h6 class="mb-2">Filter by Tag:</h6>
+                <div class="mb-3">
+                    {% for tag in all_tags %}
+                        <a href="{{ url_for('home', tag=tag.name) }}" class="btn btn-sm btn-outline-primary me-1 mb-1">
+                            {{ tag.name }}
+                        </a>
+                    {% endfor %}
+                    {% if tag_filter %}
+                        <a href="{{ url_for('home') }}" class="btn btn-sm btn-outline-danger mb-1">
+                            <i class="bi bi-x-circle"></i> Clear Filter
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions List -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Recent Questions</h3>
+            <span class="badge bg-primary">{{ questions|length }} questions</span>
+        </div>
+        
+        {% if questions %}
+            {% for question in questions %}
+                <div class="card question-card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{{ url_for('view_question', question_id=question.id) }}" class="text-decoration-none text-dark">
+                                <i class="bi bi-question-circle text-primary"></i> {{ question.title }}
+                            </a>
+                        </h5>
+                        <p class="card-text text-muted">{{ question.body[:200] }}{% if question.body|length > 200 %}...{% endif %}</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted">
+                                    <i class="bi bi-person"></i> {{ question.author.username }}
+                                    • <i class="bi bi-clock"></i> {{ question.created_at.strftime('%b %d, %Y') }}
+                                    • <i class="bi bi-chat-left-text"></i> {{ question.answers|length }} answers
+                                </small>
+                            </div>
+                            <div>
+                                {% for tag in question.tags[:3] %}
+                                    <span class="badge bg-primary tag">{{ tag.name }}</span>
+                                {% endfor %}
+                                {% if question.tags|length > 3 %}
+                                    <span class="badge bg-secondary">+{{ question.tags|length - 3 }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="bi bi-question-circle display-1 text-muted mb-3"></i>
+                    <h4>No questions found</h4>
+                    <p class="text-muted">
+                        {% if tag_filter %}
+                            No questions with tag "{{ tag_filter }}". Try another tag.
+                        {% elif search_query %}
+                            No results for "{{ search_query }}". Try different keywords.
+                        {% else %}
+                            Be the first to ask a question!
+                        {% endif %}
+                    </p>
+                    {% if 'user_id' in session %}
+                        <a href="/ask" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> Ask First Question
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-lightbulb"></i> How It Works</h5>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item border-0 px-0">
+                        <i class="bi bi-1-circle text-primary me-2"></i>
+                        <span>Register an account</span>
+                    </div>
+                    <div class="list-group-item border-0 px-0">
+                        <i class="bi bi-2-circle text-primary me-2"></i>
+                        <span>Ask your question</span>
+                    </div>
+                    <div class="list-group-item border-0 px-0">
+                        <i class="bi bi-3-circle text-primary me-2"></i>
+                        <span>Get community answers</span>
+                    </div>
+                    <div class="list-group-item border-0 px-0">
+                        <i class="bi bi-4-circle text-primary me-2"></i>
+                        <span>Upvote helpful answers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-bar-chart"></i> Platform Stats</h5>
+                <div class="row text-center">
+                    <div class="col-6">
+                        <h3 class="text-primary">{{ questions|length }}</h3>
+                        <small class="text-muted">Questions</small>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="text-success">{{ all_tags|length }}</h3>
+                        <small class="text-muted">Tags</small>
+                    </div>
+                </div>
+                {% if questions %}
+                <div class="row text-center mt-3">
+                    <div class="col-12">
+                        <h3 class="text-warning">{{ (questions|map(attribute='answers')|map('length')|sum) }}</h3>
+                        <small class="text-muted">Total Answers</small>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-star"></i> Top Tags</h5>
+                {% if all_tags[:5] %}
+                    {% for tag in all_tags[:5] %}
+                        <a href="{{ url_for('home', tag=tag.name) }}" class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="badge bg-primary">{{ tag.name }}</span>
+                            <small class="text-muted">{{ tag.questions|length }} questions</small>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No tags yet</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

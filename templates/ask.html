@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white py-3">
+                <h3 class="mb-0">
+                    <i class="bi bi-question-circle"></i> Ask a Public Question
+                </h3>
+                <p class="mb-0 small">Share your knowledge with the community</p>
+            </div>
+            
+            <div class="card-body p-4">
+                <!-- Instructions -->
+                <div class="alert alert-info mb-4">
+                    <h5 class="alert-heading">
+                        <i class="bi bi-lightbulb"></i> Writing a good question
+                    </h5>
+                    <ul class="mb-0">
+                        <li>Summarize your problem in the title</li>
+                        <li>Describe what you tried and what you expected</li>
+                        <li>Add relevant tags to help others find your question</li>
+                        <li>Be specific and provide details</li>
+                    </ul>
+                </div>
+
+                <!-- Form -->
+                <form method="POST" action="/ask">
+                    <!-- Title -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Title</label>
+                        <p class="text-muted small mb-2">Be specific and imagine you're asking another person</p>
+                        <input type="text" class="form-control form-control-lg" name="title" 
+                               placeholder="e.g., How to connect Flask with PostgreSQL?" required>
+                    </div>
+                    
+                    <!-- Body -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Body</label>
+                        <p class="text-muted small mb-2">Include all the information someone would need to answer your question</p>
+                        <textarea class="form-control" name="body" rows="8" 
+                                  placeholder="Describe your problem in detail. Include code snippets, error messages, and what you've tried." 
+                                  required></textarea>
+                        <div class="form-text">
+                            <i class="bi bi-markdown"></i> You can use Markdown for formatting
+                        </div>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Tags</label>
+                        <p class="text-muted small mb-2">Add up to 5 tags separated by commas</p>
+                        <input type="text" class="form-control" name="tags" 
+                               placeholder="e.g., python, flask, postgresql, sqlalchemy, web-development">
+                        <div class="form-text">
+                            <i class="bi bi-tags"></i> Popular tags: python, flask, database, html, css, javascript
+                        </div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+                        <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg px-4">
+                            <i class="bi bi-send"></i> Post Your Question
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Tips Card -->
+        <div class="card mt-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-star"></i> Tips for getting good answers
+                </h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex mb-3">
+                            <div class="me-3">
+                                <i class="bi bi-check-circle text-success fs-4"></i>
+                            </div>
+                            <div>
+                                <h6>Be specific</h6>
+                                <p class="small text-muted mb-0">Vague questions get vague answers</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <div class="me-3">
+                                <i class="bi bi-check-circle text-success fs-4"></i>
+                            </div>
+                            <div>
+                                <h6>Show your code</h6>
+                                <p class="small text-muted mb-0">Include relevant code snippets</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex mb-3">
+                            <div class="me-3">
+                                <i class="bi bi-check-circle text-success fs-4"></i>
+                            </div>
+                            <div>
+                                <h6>Explain what you tried</h6>
+                                <p class="small text-muted mb-0">Show your research effort</p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <i class="bi bi-check-circle text-success fs-4"></i>
+                            </div>
+                            <div>
+                                <h6>Check for duplicates</h6>
+                                <p class="small text-muted mb-0">Search before asking</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

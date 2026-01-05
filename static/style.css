@@ -1,0 +1,83 @@
+/* Custom styles for Mini StackOverflow */
+
+/* Question card hover effect */
+.question-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-left: 4px solid #0d6efd;
+}
+
+.question-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Answer card styling */
+.answer-card {
+    border-left: 3px solid #20c997;
+    transition: all 0.2s;
+}
+
+.answer-card:hover {
+    background-color: #f8f9fa;
+}
+
+/* Tag styling */
+.tag {
+    font-size: 0.85rem;
+    margin-right: 5px;
+}
+
+/* Upvote button hover */
+.upvote-btn:hover {
+    background-color: #0d6efd !important;
+    color: white !important;
+}
+
+/* Code block styling for answers */
+pre {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 3px solid #6c757d;
+}
+
+code {
+    color: #d63384;
+}
+
+/* Navbar active link */
+.nav-link.active {
+    font-weight: bold;
+}
+
+/* Footer styling */
+footer {
+    margin-top: 50px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+}
+
+/* Form focus effects */
+.form-control:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 8px;
+}
+
+/* Badge custom colors */
+.badge.bg-custom {
+    background-color: #6f42c1;
+}

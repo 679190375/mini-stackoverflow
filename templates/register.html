@@ -1,0 +1,178 @@
+cat > templates/register.html << 'EOF'
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-success text-white text-center py-4">
+                <h3 class="mb-0">
+                    <i class="bi bi-person-plus"></i> Join MiniStack Community
+                </h3>
+                <p class="mb-0 mt-2 small">Create your free account in seconds</p>
+            </div>
+            
+            <div class="card-body p-4">
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <!-- Registration Form -->
+                <form method="POST" action="/register">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="username" class="form-label">
+                                <i class="bi bi-person-badge"></i> Username
+                            </label>
+                            <input type="text" class="form-control" 
+                                   id="username" name="username" 
+                                   placeholder="Choose a username" required>
+                            <div class="form-text">
+                                This will be your public display name
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">
+                                <i class="bi bi-envelope"></i> Email Address
+                            </label>
+                            <input type="email" class="form-control" 
+                                   id="email" name="email" 
+                                   placeholder="your@email.com" required>
+                            <div class="form-text">
+                                We'll never share your email
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="password" class="form-label">
+                                <i class="bi bi-lock"></i> Password
+                            </label>
+                            <input type="password" class="form-control" 
+                                   id="password" name="password" 
+                                   placeholder="Create a password" required>
+                            <div class="form-text">
+                                Minimum 6 characters
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="confirm_password" class="form-label">
+                                <i class="bi bi-lock-fill"></i> Confirm Password
+                            </label>
+                            <input type="password" class="form-control" 
+                                   id="confirm_password" name="confirm_password" 
+                                   placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms Agreement -->
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" 
+                               id="terms" name="terms" required>
+                        <label class="form-check-label small" for="terms">
+                            I agree to the 
+                            <a href="#" class="text-decoration-none">Terms of Service</a> 
+                            and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2 mb-3">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="bi bi-person-plus"></i> Create Account
+                        </button>
+                    </div>
+                    
+                    <!-- Login Link -->
+                    <div class="text-center">
+                        <p class="mb-0">Already have an account?</p>
+                        <a href="/login" class="btn btn-outline-success mt-2">
+                            <i class="bi bi-box-arrow-in-right"></i> Login Here
+                        </a>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="card-footer bg-light">
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="bi bi-shield-check fs-2 text-primary mb-2"></i>
+                            <small class="fw-bold">Secure</small>
+                            <small class="text-muted">Encrypted data</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="bi bi-people fs-2 text-primary mb-2"></i>
+                            <small class="fw-bold">Community</small>
+                            <small class="text-muted">Join 1000+ users</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="bi bi-chat-dots fs-2 text-primary mb-2"></i>
+                            <small class="fw-bold">Support</small>
+                            <small class="text-muted">24/7 help available</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Card -->
+        <div class="card mt-4 shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-center mb-3">
+                    <i class="bi bi-gift text-success"></i> What You Get
+                </h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled small">
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Ask unlimited questions
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Answer questions & help others
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Upvote helpful content
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled small">
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Personalized feed
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Save favorite questions
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Earn reputation badges
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

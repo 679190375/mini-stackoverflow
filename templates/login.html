@@ -1,0 +1,123 @@
+cat > templates/login.html << 'EOF'
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white text-center py-4">
+                <h3 class="mb-0">
+                    <i class="bi bi-box-arrow-in-right"></i> Login to MiniStack
+                </h3>
+                <p class="mb-0 mt-2 small">Access your account to ask questions and help others</p>
+            </div>
+            
+            <div class="card-body p-4">
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <!-- Login Form -->
+                <form method="POST" action="/login">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">
+                            <i class="bi bi-person"></i> Username
+                        </label>
+                        <input type="text" class="form-control form-control-lg" 
+                               id="username" name="username" 
+                               placeholder="Enter your username" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">
+                            <i class="bi bi-lock"></i> Password
+                        </label>
+                        <input type="password" class="form-control form-control-lg" 
+                               id="password" name="password" 
+                               placeholder="Enter your password" required>
+                        <div class="form-text">
+                            <a href="#" class="text-decoration-none">Forgot password?</a>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </button>
+                    </div>
+                    
+                    <div class="text-center">
+                        <p class="mb-0">Don't have an account?</p>
+                        <a href="/register" class="btn btn-outline-primary mt-2">
+                            <i class="bi bi-person-plus"></i> Create New Account
+                        </a>
+                    </div>
+                </form>
+                
+                <!-- Divider -->
+                <div class="position-relative my-4">
+                    <hr>
+                    <div class="position-absolute top-50 start-50 translate-middle bg-white px-3">
+                        <small class="text-muted">OR</small>
+                    </div>
+                </div>
+                
+                <!-- Demo Account Info -->
+                <div class="alert alert-secondary">
+                    <h6 class="alert-heading">
+                        <i class="bi bi-info-circle"></i> Demo Account
+                    </h6>
+                    <p class="small mb-0">
+                        <strong>Username:</strong> demo<br>
+                        <strong>Password:</strong> demo123
+                    </p>
+                </div>
+            </div>
+            
+            <div class="card-footer text-center py-3 bg-light">
+                <small class="text-muted">
+                    By logging in, you agree to our 
+                    <a href="#" class="text-decoration-none">Terms of Service</a> 
+                    and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                </small>
+            </div>
+        </div>
+        
+        <!-- Benefits Card -->
+        <div class="card mt-4 shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-center mb-3">
+                    <i class="bi bi-stars text-primary"></i> Why Join MiniStack?
+                </h5>
+                <div class="row">
+                    <div class="col-6 mb-2">
+                        <i class="bi bi-check-circle text-success me-1"></i>
+                        <small>Ask Questions</small>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <i class="bi bi-check-circle text-success me-1"></i>
+                        <small>Help Others</small>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <i class="bi bi-check-circle text-success me-1"></i>
+                        <small>Earn Reputation</small>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <i class="bi bi-check-circle text-success me-1"></i>
+                        <small>Save Favorites</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+EOF
